@@ -19,5 +19,8 @@
     "watch": "BABEL_ENV=commonjs babel src --out-dir dist/commonjs --config-file ./babel.config.js -w",
     "build-commonjs": "NODE_ENV=production BABEL_ENV=commonjs babel src --out-dir dist/commonjs --config-file ./babel.config.js",
     "build-esm": "NODE_ENV=production BABEL_ENV=esm babel src --out-dir dist/esm --config-file ./babel.config.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
   }
 }

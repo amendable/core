@@ -1,7 +1,7 @@
 import MiddlewaresProvider from './Provider'
 import { Consumer as MiddlewaresConsumer } from './Context'
 
-export default {
+export {
   MiddlewaresProvider,
   MiddlewaresConsumer,
 }

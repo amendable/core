@@ -12,13 +12,13 @@ const isKeyMatch = (match, key, value) => {
   }
 }
 
-const applyMiddleware = (props, middleware: { options: () => ({}) }) => {
+const applyMiddleware = (props, middleware) => {
   Object.keys(props).forEach(key => {
     const value = props[key];
 
     if (!isKeyMatch(middleware.match, key, value)) { return props; }
 
-    const options = middleware.options({ key, value });
+    const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
 
     return middleware.resolve({ key, value, options });
   })

@@ -6,7 +6,7 @@ const isKeyMatch = (match, key, value) => {
   } else if (_.isRegExp(match)) {
     return match.match(key);
   } else if (_.isArray(match)) {
-    return _.any(match, key);
+    return match.includes(key);
   } else {
     return false;
   }

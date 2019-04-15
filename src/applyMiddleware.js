@@ -12,7 +12,7 @@ const isKeyMatch = (match, key, value) => {
   }
 }
 
-const applyMiddleware = (props, middleware) => {
+const applyMiddleware = (middleware, props) => {
   Object.keys(props).forEach(key => {
     const value = props[key];
 
@@ -23,3 +23,5 @@ const applyMiddleware = (props, middleware) => {
     return middleware.resolve({ key, value, options });
   })
 }
+
+export default applyMiddleware;

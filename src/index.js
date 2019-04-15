@@ -1,10 +1,3 @@
-import MiddlewaresProvider from './Provider'
-import { Consumer as MiddlewaresConsumer } from './Context'
-import Box from './Box';
-
-export default Box;
-
-export {
-  MiddlewaresProvider,
-  MiddlewaresConsumer,
-}
+export { default as MiddlewaresProvider  }from './Provider'
+export { Consumer as MiddlewaresConsumer } from './Context'
+export { default } from './Box';

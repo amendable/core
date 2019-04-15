@@ -1,21 +1,24 @@
 import React from 'react';
 import { Consumer } from './Context';
+import applyMiddlewares from './applyMiddlewares';
 
-const applyMiddlewares = (props, middlwares) => {
-
-}
-
-const Box = ({ as, ...props }) => (
+const Box = ({ component, children, ...rest }) => (
   <Consumer>
     {({ middlewares }) => {
-      const Component = as;
+      const Component = component;
+      const { style, props } = applyMiddlewares(rest, middlewares);
 
+      return (
+        <Component {...props} style={style}>
+          {children}
+        </Component>
+      )
     }}
   </Consumer>
 )
 
 Box.defaultProps = {
-  as: 'div',
+  component: 'div',
 }
 
 Box.displayName = 'Box';

@@ -13,15 +13,23 @@ const isKeyMatch = (match, key, value) => {
 }
 
 const applyMiddleware = (middleware, props) => {
+  const style = {};
+  const originalProps = {}
+
   Object.keys(props).forEach(key => {
     const value = props[key];
 
-    if (!isKeyMatch(middleware.match, key, value)) { return props; }
+    if (!isKeyMatch(middleware.match, key, value)) {
+      originalProps[key] = value;
+      return;
+    }
 
     const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
 
-    return middleware.resolve({ key, value, options });
+    Object.assign(style, middleware.resolve({ key, value, options }));
   })
+
+  return { style, props: originalProps };
 }
 
 export default applyMiddleware;

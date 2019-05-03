@@ -1,17 +1,41 @@
-import applyMiddleware from './applyMiddleware';
+import _ from 'lodash';
 
-const applyMiddlewares = (props, middlewares) => {
-  const style = {};
-  const originalProps = {};
+const isMiddlewareMatch = (match, key, value) => {
+  if (_.isFunction(match)) {
+    return match({ key, value });
+  } else if (_.isRegExp(match)) {
+    return match.match(key);
+  } else if (_.isArray(match)) {
+    return match.includes(key);
+  } else {
+    return false;
+  }
+}
+
+const applyMiddlewares = (middlewares, props) => {
+  let result = {};
 
   middlewares.forEach(middleware => {
-    const middlewareData = applyMiddleware(middleware, props);
+    if (_.isFunction(middleware)) {
+      result = middleware(props);
+      return;
+    }
 
-    Object.assign(style, middlewareData.style);
-    Object.assign(originalProps, middlewareData.props);
+    Object.keys(props).forEach(key => {
+      const value = props[key];
+
+      if (!isMiddlewareMatch(middleware.match, key, value)) {
+        result[key] = value;
+        return;
+      }
+
+      const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
+
+      Object.assign(result, middleware.resolve({ key, value, options }));
+    });
   });
 
-  return { style, props: originalProps };
+  return result;
 }
 
 export default applyMiddlewares;

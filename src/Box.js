@@ -6,10 +6,10 @@ const Box = ({ component, children, ...rest }) => (
   <Consumer>
     {({ middlewares }) => {
       const Component = component;
-      const { style, props } = applyMiddlewares(rest, middlewares);
+      const props = applyMiddlewares(middlewares, rest);
 
       return (
-        <Component {...props} style={style}>
+        <Component {...props}>
           {children}
         </Component>
       )

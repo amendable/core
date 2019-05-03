@@ -15,11 +15,17 @@ const isMiddlewareMatch = (match, key, value) => {
 const applyMiddlewares = (middlewares, props) => {
   let result = {};
 
-  middlewares.forEach(middleware => {
+  middlewares.forEach((middleware, index) => {
     if (_.isFunction(middleware)) {
       result = middleware(props);
+
+      if (_.isFunction(result)) {
+        console.warn(`Warning: Middleware index #${index} is passed as a function. You might need to call it instead.`)
+      }
+
       return;
     }
+
 
     Object.keys(props).forEach(key => {
       const value = props[key];

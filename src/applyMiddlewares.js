@@ -4,7 +4,7 @@ const isMiddlewareMatch = (match, key, value) => {
   if (_.isFunction(match)) {
     return match({ key, value });
   } else if (_.isRegExp(match)) {
-    return match.match(key);
+    return key.match(match);
   } else if (_.isArray(match)) {
     return match.includes(key);
   } else {

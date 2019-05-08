@@ -7,6 +7,8 @@ const isMiddlewareMatch = (match, key, value) => {
     return key.match(match);
   } else if (_.isArray(match)) {
     return match.includes(key);
+  } else if (_.isString(match)) {
+    return match === key;
   } else {
     return false;
   }

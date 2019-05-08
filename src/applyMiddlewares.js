@@ -17,7 +17,7 @@ const applyMiddlewares = (middlewares, props) => {
 
   middlewares.forEach((middleware, index) => {
     if (_.isFunction(middleware)) {
-      result = middleware(props);
+      result = middleware(result);
 
       if (_.isFunction(result)) {
         console.warn(`Warning: Middleware index #${index} is passed as a function. You might need to call it instead.`)

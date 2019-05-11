@@ -29,13 +29,11 @@ const applyMiddlewares = (middlewares, props) => {
     Object.keys(result).forEach(key => {
       const value = result[key];
 
-      if (!isMiddlewareMatch(middleware.match, key, value)) {
-        result[key] = value;
-        return;
-      }
+      if (!isMiddlewareMatch(middleware.match, key, value)) return
 
       const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
 
+      delete result[key]
       Object.assign(result, middleware.resolve({ key, value, options }));
     });
   });

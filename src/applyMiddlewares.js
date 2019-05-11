@@ -13,7 +13,7 @@ const isMiddlewareMatch = (match, key, value) => {
 }
 
 const applyMiddlewares = (middlewares, props) => {
-  let result = {};
+  let result = _.cloneDeep(props);
 
   middlewares.forEach((middleware, index) => {
     if (_.isFunction(middleware)) {
@@ -26,9 +26,8 @@ const applyMiddlewares = (middlewares, props) => {
       return;
     }
 
-
-    Object.keys(props).forEach(key => {
-      const value = props[key];
+    Object.keys(result).forEach(key => {
+      const value = result[key];
 
       if (!isMiddlewareMatch(middleware.match, key, value)) {
         result[key] = value;

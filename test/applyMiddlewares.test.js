@@ -76,3 +76,30 @@ test('passes new props to next middleware', () => {
     paddingLeft: '2px',
   })
 });
+
+test('match works with a converted key', () => {
+  const middlewares = [
+    {
+      match: 'backgroundColorBlue',
+      resolve: ({ key, value  }) => ({
+        backgroundColor: 'blue',
+      })
+    },
+    {
+      match: ['color', 'backgroundColor'],
+      resolve: ({ key, value  }) => ({
+        [key]: `touched-${value}`,
+      })
+    },
+  ]
+
+  const props = {
+    color: 'red',
+    backgroundColorBlue: true,
+  }
+
+  expect(applyMiddlewares(middlewares, props)).toEqual({
+    color: 'touched-red',
+    backgroundColor: 'touched-blue',
+  })
+});

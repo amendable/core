@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import replaceObjectKey from './utils/replaceObjectKey';
 
 const isMiddlewareMatch = (match, key, value) => {
   if (_.isFunction(match)) {
@@ -38,12 +39,13 @@ const applyMiddlewares = (middlewares, props) => {
     Object.keys(result).forEach(key => {
       const value = result[key];
 
-      if (!isMiddlewareMatch(middleware.match, key, value)) return
+      if (!isMiddlewareMatch(middleware.match, key, value)) {
+        return
+      }
 
       const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
 
-      delete result[key]
-      Object.assign(result, middleware.resolve({ key, value, options }));
+      result = replaceObjectKey(result, key, middleware.resolve({ key, value, options }));
     });
   });
 

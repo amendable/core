@@ -36,6 +36,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "react-css-component": "^1.0.2"
   }
 }

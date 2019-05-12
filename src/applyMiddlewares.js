@@ -15,14 +15,14 @@ const isMiddlewareMatch = (match, key, value) => {
   }
 }
 
-const applyMiddlewares = (middlewares, props) => {
+const applyMiddlewares = ({ middlewares, ...rest }, props) => {
   let result = _.cloneDeep(props);
 
   middlewares.forEach((middleware, index) => {
     result = _.cloneDeep(result)
 
     if (_.isFunction(middleware)) {
-      result = middleware(result);
+      result = middleware(result, rest);
 
       if (_.isFunction(result)) {
         console.warn(`Warning: Middleware index #${index} is passed as a function. You might need to call it instead.`)
@@ -32,7 +32,7 @@ const applyMiddlewares = (middlewares, props) => {
     }
 
     if (_.isArray(middleware)) {
-      result = applyMiddlewares(middleware, result);
+      result = applyMiddlewares({ middlewares: middleware, ...rest }, result);
       return;
     }
 
@@ -45,7 +45,7 @@ const applyMiddlewares = (middlewares, props) => {
 
       const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
 
-      result = replaceObjectKey(result, key, middleware.resolve({ key, value, options }));
+      result = replaceObjectKey(result, key, middleware.resolve({ key, value, options, ...rest }));
     });
   });
 

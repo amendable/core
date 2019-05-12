@@ -4,9 +4,9 @@ import applyMiddlewares from './applyMiddlewares';
 
 const Box = ({ component, children, ...rest }) => (
   <Consumer>
-    {({ middlewares }) => {
+    {(context) => {
       const Component = component;
-      const props = applyMiddlewares(middlewares, rest);
+      const props = applyMiddlewares(context, rest);
 
       return (
         <Component {...props}>

@@ -30,6 +30,11 @@ const applyMiddlewares = (middlewares, props) => {
       return;
     }
 
+    if (_.isArray(middleware)) {
+      result = applyMiddlewares(middleware, result);
+      return;
+    }
+
     Object.keys(result).forEach(key => {
       const value = result[key];
 

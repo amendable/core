@@ -49,3 +49,30 @@ test('has correct props order', () => {
     'marginBottom',
   ]);
 });
+
+test('passes new props to next middleware', () => {
+  const middlewares = [
+    {
+      match: ({ value }) => value === true,
+      resolve: ({ key, value  }) => ({
+        [key]: 1,
+      })
+    },
+    {
+      match: () => true,
+      resolve: ({ key, value  }) => ({
+        [key]: `${value}px`,
+      })
+    },
+  ]
+
+  const props = {
+    padding: true,
+    paddingLeft: 2,
+  }
+
+  expect(applyMiddlewares(middlewares, props)).toEqual({
+    padding: '1px',
+    paddingLeft: '2px',
+  })
+});

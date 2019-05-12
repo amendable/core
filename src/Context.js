@@ -4,4 +4,5 @@ const defaultContext = {
   middlewares: [],
 }
 
-export const { Consumer, Provider } = createContext(defaultContext)
+export const Context = createContext(defaultContext)
+export const { Consumer, Provider } = Context

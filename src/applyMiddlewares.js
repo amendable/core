@@ -11,8 +11,10 @@ const isMiddlewareMatch = (match, key, value) => {
     return match.includes(key);
   } else if (_.isString(match)) {
     return match === key;
+  } else if (_.isUndefined(match)) {
+    return true;
   } else {
-    return false;
+    return match;
   }
 }
 
@@ -59,7 +61,9 @@ const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
 
       const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
 
-      result = replaceObjectKey(result, key, middleware.resolve({ key, value, options }));
+      if (middleware.resolve) {
+        result = replaceObjectKey(result, key, middleware.resolve({ key, value, options }));
+      }
 
       if (_.isFunction(middleware.globalCss)) {
         injectGlobalCss(middleware.globalCss({ key, value, options }));

@@ -5,6 +5,7 @@ const replaceObjectKey = (object, replaceKey, newObject) => {
     if (key === replaceKey) {
       Object.assign(o, newObject);
     } else {
+      delete o[key];
       o[key] = object[key];
     }
   });

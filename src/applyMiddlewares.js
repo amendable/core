@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import replaceObjectKey from './utils/replaceObjectKey';
+import hashStr from './utils/hash';
 
 const isMiddlewareMatch = (match, key, value) => {
   if (_.isFunction(match)) {
@@ -15,7 +16,20 @@ const isMiddlewareMatch = (match, key, value) => {
   }
 }
 
-const applyMiddlewares = (middlewares, props) => {
+const injectGlobalCss = (css, context) => {
+  const id = `amendable-${hashStr(css)}`;
+
+  if (document.head.querySelector(`#${id}`)) return;
+
+  const node = document.createElement('style')
+  node.id = id
+  node.textContent = css
+  node.type = 'text/css'
+
+  document.head.appendChild(node)
+}
+
+const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
   let result = _.cloneDeep(props);
 
   middlewares.forEach((middleware, index) => {
@@ -32,7 +46,7 @@ const applyMiddlewares = (middlewares, props) => {
     }
 
     if (_.isArray(middleware)) {
-      result = applyMiddlewares(middleware, result);
+      result = applyMiddlewares({ middlewares: middleware, ...contextRest }, result);
       return;
     }
 
@@ -46,6 +60,12 @@ const applyMiddlewares = (middlewares, props) => {
       const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
 
       result = replaceObjectKey(result, key, middleware.resolve({ key, value, options }));
+
+      if (_.isFunction(middleware.globalCss)) {
+        injectGlobalCss(middleware.globalCss({ key, value, options }));
+      } else if (_.isString(middleware.globalCss)) {
+        injectGlobalCss(middleware.globalCss);
+      }
     });
   });
 

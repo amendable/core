@@ -24,7 +24,7 @@ const injectGlobalCss = (css, global = true) => {
   const id = `amendable-${hashStr(css)}`;
   const stylisSelector = global ? '' : `.${id}`;
 
-  if (document.head.querySelector(`#${id}`)) return;
+  if (document.head.querySelector(`#${id}`)) return {};
 
   const node = document.createElement('style')
   node.id = id

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import stylis from 'stylis';
 import replaceObjectKey from './utils/replaceObjectKey';
 import hashStr from './utils/hash';
 
@@ -18,14 +19,14 @@ const isMiddlewareMatch = (match, key, value) => {
   }
 }
 
-const injectGlobalCss = (css, context) => {
+const injectGlobalCss = (css, global = true) => {
   const id = `amendable-${hashStr(css)}`;
 
   if (document.head.querySelector(`#${id}`)) return;
 
   const node = document.createElement('style')
   node.id = id
-  node.textContent = css
+  node.textContent = stylis(global ? '' : id, css)
   node.type = 'text/css'
 
   document.head.appendChild(node)
@@ -66,9 +67,15 @@ const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
       }
 
       if (_.isFunction(middleware.globalCss)) {
-        injectGlobalCss(middleware.globalCss({ key, value, options }));
+        injectGlobalCss(middleware.globalCss({ key, value, options }), true);
       } else if (_.isString(middleware.globalCss)) {
-        injectGlobalCss(middleware.globalCss);
+        injectGlobalCss(middleware.globalCss, true);
+      }
+
+      if (_.isFunction(middleware.css)) {
+        injectGlobalCss(middleware.css({ key, value, options }));
+      } else if (_.isString(middleware.css)) {
+        injectGlobalCss(middleware.css);
       }
     });
   });

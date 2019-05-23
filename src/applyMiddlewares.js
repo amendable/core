@@ -38,6 +38,11 @@ const injectGlobalCss = (css, global = true) => {
 const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
   let result = props;
 
+  if (!_.isArray(middlewares)) {
+    console.error('Middlewares:', middlewares);
+    throw new Error('Middlewares must be provided as Array.')
+  }
+
   middlewares.forEach((middleware, index) => {
     result = _.cloneDeep(result)
 

@@ -82,7 +82,7 @@ const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
 
       if (middleware.css) {
         const css = _.isFunction(middleware.css) ? middleware.css({ key, value, options }) : middleware.css
-        const { className } = injectGlobalCss(css);
+        const { className } = injectGlobalCss(css, false);
 
         if (className) {
           result.className = classNames(className, result.className)

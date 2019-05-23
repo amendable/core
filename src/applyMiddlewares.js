@@ -32,7 +32,7 @@ const injectGlobalCss = (css, context) => {
 }
 
 const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
-  let result = _.cloneDeep(props);
+  let result = props;
 
   middlewares.forEach((middleware, index) => {
     result = _.cloneDeep(result)

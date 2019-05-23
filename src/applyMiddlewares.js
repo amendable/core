@@ -16,7 +16,7 @@ const isMiddlewareMatch = (match, key, value) => {
 }
 
 const applyMiddlewares = (middlewares, props) => {
-  let result = _.cloneDeep(props);
+  let result = props;
 
   middlewares.forEach((middleware, index) => {
     result = _.cloneDeep(result)

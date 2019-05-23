@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import stylis from 'stylis';
+import classNames from 'classnames';
 import replaceObjectKey from './utils/replaceObjectKey';
 import hashStr from './utils/hash';
 
@@ -21,15 +22,17 @@ const isMiddlewareMatch = (match, key, value) => {
 
 const injectGlobalCss = (css, global = true) => {
   const id = `amendable-${hashStr(css)}`;
+  const stylisSelector = global ? '' : `.${id}`;
 
   if (document.head.querySelector(`#${id}`)) return;
 
   const node = document.createElement('style')
   node.id = id
-  node.textContent = stylis(global ? '' : id, css)
+  node.textContent = stylis(stylisSelector, css)
   node.type = 'text/css'
 
   document.head.appendChild(node)
+  return { className: global ? null : id }
 }
 
 const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
@@ -72,10 +75,13 @@ const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
         injectGlobalCss(middleware.globalCss, true);
       }
 
-      if (_.isFunction(middleware.css)) {
-        injectGlobalCss(middleware.css({ key, value, options }));
-      } else if (_.isString(middleware.css)) {
-        injectGlobalCss(middleware.css);
+      if (middleware.css) {
+        const css = _.isFunction(middleware.css) ? middleware.css({ key, value, options }) : middleware.css
+        const { className } = injectGlobalCss(css);
+
+        if (className) {
+          result.className = classNames(className, result.className)
+        }
       }
     });
   });

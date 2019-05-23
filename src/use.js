@@ -1,10 +1,4 @@
-import {
-    useContext,
-} from 'react'
-
+import { useContext } from 'react'
 import applyMiddlewares from './applyMiddlewares'
 
-export default (Context) => (props) => {
-  const context = useContext(Context)
-  return applyMiddlewares(context.middlewares, props)
-}
+export default Context => props => applyMiddlewares(useContext(Context), props);

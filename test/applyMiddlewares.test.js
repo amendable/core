@@ -31,7 +31,7 @@ const props = {
 }
 
 test('applies middlewares', () => {
-  expect(applyMiddlewares(middlewares, props)).toStrictEqual({
+  expect(applyMiddlewares({ middlewares }, props)).toStrictEqual({
     color: 'red',
     marginRight: '10px',
     marginLeft: '10px',
@@ -41,7 +41,7 @@ test('applies middlewares', () => {
 });
 
 test('has correct props order', () => {
-  expect(Object.keys(applyMiddlewares(middlewares, props))).toEqual([
+  expect(Object.keys(applyMiddlewares({ middlewares }, props))).toEqual([
     'color',
     'marginRight',
     'marginLeft',
@@ -71,7 +71,7 @@ test('passes new props to next middleware', () => {
     paddingLeft: 2,
   }
 
-  expect(applyMiddlewares(middlewares, props)).toEqual({
+  expect(applyMiddlewares({ middlewares }, props)).toEqual({
     padding: '1px',
     paddingLeft: '2px',
   })
@@ -98,7 +98,7 @@ test('match works with a converted key', () => {
     backgroundColorBlue: true,
   }
 
-  expect(applyMiddlewares(middlewares, props)).toEqual({
+  expect(applyMiddlewares({ middlewares }, props)).toEqual({
     color: 'touched-red',
     backgroundColor: 'touched-blue',
   })

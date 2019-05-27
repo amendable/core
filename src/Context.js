@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 const defaultContext = {
-  middlewares: [],
+  resolvers: [],
 }
 
 export const Context = createContext(defaultContext)

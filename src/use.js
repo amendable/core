@@ -1,4 +1,4 @@
 import { useContext } from 'react'
-import applyMiddlewares from './applyMiddlewares'
+import applyResolvers from './applyResolvers'
 
-export default Context => props => applyMiddlewares(useContext(Context), props);
+export default Context => props => applyResolvers(useContext(Context), props);

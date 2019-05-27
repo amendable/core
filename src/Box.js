@@ -1,12 +1,12 @@
 import React from 'react';
 import { Consumer } from './Context';
-import applyMiddlewares from './applyMiddlewares';
+import applyResolvers from './applyResolvers';
 
 const Box = ({ component, children, ...rest }) => (
   <Consumer>
     {(context) => {
       const Component = component;
-      const props = applyMiddlewares(context, rest);
+      const props = applyResolvers(context, rest);
 
       return (
         <Component {...props}>

@@ -1,6 +1,6 @@
-import applyMiddlewares from '../src/applyMiddlewares';
+import applyResolvers from '../src/applyResolvers';
 
-const marginXMiddleware = () => ({
+const marginXResolver = () => ({
   match: 'marginX',
   resolve: ({ key, value }) => ({
     marginRight: value,
@@ -8,7 +8,7 @@ const marginXMiddleware = () => ({
   }),
 })
 
-const marginYMiddleware = () => ({
+const marginYResolver = () => ({
   match: 'marginY',
   resolve: ({ key, value }) => ({
     marginBottom: value,
@@ -16,10 +16,10 @@ const marginYMiddleware = () => ({
   }),
 })
 
-const middlewares = [
+const resolvers = [
   [
-    marginXMiddleware(),
-    marginYMiddleware(),
+    marginXResolver(),
+    marginYResolver(),
   ]
 ]
 
@@ -30,8 +30,8 @@ const props = {
   marginBottom: '30px',
 }
 
-test('applies middlewares', () => {
-  expect(applyMiddlewares({ middlewares }, props)).toStrictEqual({
+test('applies resolvers', () => {
+  expect(applyResolvers({ resolvers }, props)).toStrictEqual({
     color: 'red',
     marginRight: '10px',
     marginLeft: '10px',
@@ -41,7 +41,7 @@ test('applies middlewares', () => {
 });
 
 test('has correct props order', () => {
-  expect(Object.keys(applyMiddlewares({ middlewares }, props))).toEqual([
+  expect(Object.keys(applyResolvers({ resolvers }, props))).toEqual([
     'color',
     'marginRight',
     'marginLeft',
@@ -50,8 +50,8 @@ test('has correct props order', () => {
   ]);
 });
 
-test('passes new props to next middleware', () => {
-  const middlewares = [
+test('passes new props to next resolver', () => {
+  const resolvers = [
     {
       match: ({ value }) => value === true,
       resolve: ({ key, value  }) => ({
@@ -71,14 +71,14 @@ test('passes new props to next middleware', () => {
     paddingLeft: 2,
   }
 
-  expect(applyMiddlewares({ middlewares }, props)).toEqual({
+  expect(applyResolvers({ resolvers }, props)).toEqual({
     padding: '1px',
     paddingLeft: '2px',
   })
 });
 
 test('match works with a converted key', () => {
-  const middlewares = [
+  const resolvers = [
     {
       match: 'backgroundColorBlue',
       resolve: ({ key, value  }) => ({
@@ -98,7 +98,7 @@ test('match works with a converted key', () => {
     backgroundColorBlue: true,
   }
 
-  expect(applyMiddlewares({ middlewares }, props)).toEqual({
+  expect(applyResolvers({ resolvers }, props)).toEqual({
     color: 'touched-red',
     backgroundColor: 'touched-blue',
   })

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import replaceObjectKey from './utils/replaceObjectKey';
 import hashStr from './utils/hash';
 
-const isMiddlewareMatch = (match, key, value) => {
+const isResolverMatch = (match, key, value) => {
   if (_.isFunction(match)) {
     return match({ key, value });
   } else if (_.isRegExp(match)) {
@@ -37,53 +37,53 @@ const injectGlobalCss = (css, global = true) => {
   return { className }
 }
 
-const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
+const applyResolvers = ({ resolvers, ...contextRest }, props) => {
   let result = props;
 
-  if (!_.isArray(middlewares)) {
-    console.error('Middlewares:', middlewares);
-    throw new Error('Middlewares must be provided as Array.')
+  if (!_.isArray(resolvers)) {
+    console.error('resolvers:', resolvers);
+    throw new Error('Resolvers must be provided as Array.')
   }
 
-  middlewares.forEach((middleware, index) => {
+  resolvers.forEach((resolver, index) => {
     result = _.cloneDeep(result)
 
-    if (_.isFunction(middleware)) {
-      result = middleware(result);
+    if (_.isFunction(resolver)) {
+      result = resolver(result);
 
       if (_.isFunction(result)) {
-        console.warn(`Warning: Middleware index #${index} is passed as a function. You might need to call it instead.`)
+        console.warn(`Warning: Resolver index #${index} is passed as a function. You might need to call it instead.`)
       }
 
       return;
     }
 
-    if (_.isArray(middleware)) {
-      result = applyMiddlewares({ middlewares: middleware, ...contextRest }, result);
+    if (_.isArray(resolver)) {
+      result = applyResolvers({ resolvers: resolver, ...contextRest }, result);
       return;
     }
 
     Object.keys(result).forEach(key => {
       const value = result[key];
 
-      if (!isMiddlewareMatch(middleware.match, key, value)) {
+      if (!isResolverMatch(resolver.match, key, value)) {
         return
       }
 
-      const options = _.isFunction(middleware.options) ? middleware.options({ key, value }) : {};
+      const options = _.isFunction(resolver.options) ? resolver.options({ key, value }) : {};
 
-      if (middleware.resolve) {
-        result = replaceObjectKey(result, key, middleware.resolve({ key, value, options }));
+      if (resolver.resolve) {
+        result = replaceObjectKey(result, key, resolver.resolve({ key, value, options }));
       }
 
-      if (_.isFunction(middleware.globalCss)) {
-        injectGlobalCss(middleware.globalCss({ key, value, options }), true);
-      } else if (_.isString(middleware.globalCss)) {
-        injectGlobalCss(middleware.globalCss, true);
+      if (_.isFunction(resolver.globalCss)) {
+        injectGlobalCss(resolver.globalCss({ key, value, options }), true);
+      } else if (_.isString(resolver.globalCss)) {
+        injectGlobalCss(resolver.globalCss, true);
       }
 
-      if (middleware.css) {
-        const css = _.isFunction(middleware.css) ? middleware.css({ key, value, options }) : middleware.css
+      if (resolver.css) {
+        const css = _.isFunction(resolver.css) ? resolver.css({ key, value, options }) : resolver.css
         const { className } = injectGlobalCss(css, false);
 
         if (className) {
@@ -98,4 +98,4 @@ const applyMiddlewares = ({ middlewares, ...contextRest }, props) => {
   return result;
 }
 
-export default applyMiddlewares;
+export default applyResolvers;

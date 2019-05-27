@@ -6,7 +6,7 @@ import {
 
 export default ({
   children,
-  middlewares,
+  middlewares = [],
   ...rest
 }) => (
   <Provider value={{

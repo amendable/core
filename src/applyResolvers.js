@@ -41,7 +41,7 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
   let result = props;
 
   if (!_.isArray(resolvers)) {
-    console.error('resolvers:', resolvers);
+    console.error('Resolvers:', resolvers);
     throw new Error('Resolvers must be provided as Array.')
   }
 
@@ -70,14 +70,21 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
         return
       }
 
-      const options = _.isFunction(resolver.options) ? resolver.options({ key, value }) : {};
+      const options = _.isFunction(resolver.options) ? resolver.options({ key, value, hashStr }) : {};
 
       if (resolver.resolve) {
         result = replaceObjectKey(result, key, resolver.resolve({ key, value, options }));
       }
 
       if (_.isFunction(resolver.globalCss)) {
-        injectGlobalCss(resolver.globalCss({ key, value, options }), true);
+        injectGlobalCss(resolver.globalCss({
+          key,
+          value,
+          options,
+          applyResolvers: (props) => (
+            applyResolvers({ resolvers, ...contextRest }, props)
+          ),
+        }), true);
       } else if (_.isString(resolver.globalCss)) {
         injectGlobalCss(resolver.globalCss, true);
       }

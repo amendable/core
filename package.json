@@ -1,6 +1,6 @@
 {
   "name": "@amendable/core",
-  "version": "0.0.3-beta.0",
+  "version": "0.0.3-beta.1",
   "main": "dist/commonjs/index.js",
   "module": "dist/esm/index.js",
   "files": [

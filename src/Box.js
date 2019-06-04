@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Consumer } from './Context';
 import applyResolvers from './applyResolvers';
 
-const Box = ({ component, children, ...rest }) => (
+const Box = forwardRef(({ component, children, ...rest }, ref) => (
   <Consumer>
     {(context) => {
       const Component = component;
       const props = applyResolvers(context, rest);
 
       return (
-        <Component {...props}>
+        <Component
+          {...props}
+          ref={ref}
+        >
           {children}
         </Component>
       )
     }}
   </Consumer>
-)
+))
 
 Box.defaultProps = {
   component: 'div',

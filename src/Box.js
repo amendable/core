@@ -2,11 +2,11 @@ import React, { forwardRef } from 'react';
 import { Consumer } from './Context';
 import applyResolvers from './applyResolvers';
 
-const Box = forwardRef(({ component, children, ...rest }, ref) => (
+const Box = forwardRef(({ children, ...rest }, ref) => (
   <Consumer>
     {(context) => {
-      const Component = component;
-      const props = applyResolvers(context, rest);
+      const { component, ...props } = applyResolvers(context, rest);
+      const Component = component || 'div';
 
       return (
         <Component

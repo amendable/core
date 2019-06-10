@@ -46,8 +46,6 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
   }
 
   resolvers.forEach((resolver, index) => {
-    result = _.cloneDeep(result)
-
     if (_.isFunction(resolver)) {
       result = resolver(result);
 

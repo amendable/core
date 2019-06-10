@@ -1,50 +1,24 @@
-import React, { useState, Component, forwardRef } from 'react';
+import React, { memo, forwardRef } from 'react';
 import { Consumer } from './Context';
 import applyResolvers from './applyResolvers';
 
-class InnerBox extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      component: props.component,
-    }
-  }
-
-  render() {
-    const {
-      component,
-      innerRef,
-      ...rest
-    } = this.props
-
-    const Component = this.state.component
-
-    return (
-      <Component
-        ref={innerRef}
-        {...rest}
-      />
-    )
-  }
-}
-
-const Box = forwardRef(({ children, ...rest }, ref) => (
+const Box = memo(forwardRef(({ children, ...rest }, ref) => (
   <Consumer>
     {(context) => {
-      const props = applyResolvers(context, rest);
+      const { component, ...props } = applyResolvers(context, rest);
+      const Component = component || 'div';
 
       return (
-        <InnerBox
+        <Component
           {...props}
-          innerRef={ref}
+          ref={ref}
         >
           {children}
-        </InnerBox>
+        </Component>
       )
     }}
   </Consumer>
-))
+)))
 
 Box.defaultProps = {
   component: 'div',

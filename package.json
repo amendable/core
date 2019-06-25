@@ -1,6 +1,6 @@
 {
   "name": "@amendable/core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/commonjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -36,6 +36,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@amendable/hash": "^0.1.0",
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "stylis": "^3.5.4"

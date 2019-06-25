@@ -2,40 +2,8 @@ import _ from 'lodash';
 import stylis from 'stylis';
 import classNames from 'classnames';
 import replaceObjectKey from './utils/replaceObjectKey';
-import hashStr from './utils/hash';
-
-const isResolverMatch = (match, key, value) => {
-  if (_.isFunction(match)) {
-    return match({ key, value });
-  } else if (_.isRegExp(match)) {
-    return key.match(match);
-  } else if (_.isArray(match)) {
-    return match.includes(key);
-  } else if (_.isString(match)) {
-    return match === key;
-  } else if (_.isUndefined(match)) {
-    return true;
-  } else {
-    return match;
-  }
-}
-
-const injectGlobalCss = (css, global = true) => {
-  const id = `amendable-${hashStr(css)}`;
-  const stylisSelector = global ? '' : `.${id}`;
-  const className = global ? null : id;
-
-  if (!document.head.querySelector(`#${id}`)) {
-    const node = document.createElement('style')
-    node.id = id
-    node.textContent = stylis(stylisSelector, css)
-    node.type = 'text/css'
-
-    document.head.appendChild(node)
-  }
-
-  return { className }
-}
+import injectGlobalCss from './utils/injectGlobalCss';
+import isResolverMatch from './isResolverMatch';
 
 const applyResolvers = ({ resolvers, ...contextRest }, props) => {
   let result = props;

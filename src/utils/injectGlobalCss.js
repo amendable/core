@@ -1,4 +1,5 @@
 import hash from '@amendable/hash';
+import stylis from 'stylis';
 
 export default (css, global = true) => {
   const id = `amendable-${hash(css)}`;

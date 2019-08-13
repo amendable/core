@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import stylis from 'stylis';
 import classNames from 'classnames';
 import replaceObjectKey from './utils/replaceObjectKey';
 import injectGlobalCss from './utils/injectGlobalCss';

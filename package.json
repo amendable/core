@@ -1,6 +1,6 @@
 {
   "name": "@amendable/core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "dist/commonjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -14,14 +14,14 @@
   },
   "repository": "amendable/core",
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.4.5",
+    "@babel/runtime": "^7.5.5",
     "babel-plugin-lodash": "^3.3.4",
     "jest": "^24.8.0"
   },
@@ -38,7 +38,7 @@
   "dependencies": {
     "@amendable/hash": "^0.1.0",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "stylis": "^3.5.4"
   }
 }

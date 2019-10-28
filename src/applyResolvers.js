@@ -55,7 +55,14 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
       }
 
       if (resolver.css) {
-        const css = _.isFunction(resolver.css) ? resolver.css({ key, value, options }) : resolver.css
+        const css = _.isFunction(resolver.css) ? resolver.css({
+          key,
+          value,
+          options,
+          applyResolvers: (props) => (
+            applyResolvers({ resolvers, ...contextRest }, props)
+          ),
+        }) : resolver.css
         const { className } = injectGlobalCss(css, false);
 
         if (className) {

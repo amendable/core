@@ -42,13 +42,27 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
       }
 
       if (_.isFunction(resolver.globalCss)) {
-        injectGlobalCss(resolver.globalCss({ key, value, options }), true);
+        injectGlobalCss(resolver.globalCss({
+          key,
+          value,
+          options,
+          applyResolvers: (props) => (
+            applyResolvers({ resolvers, ...contextRest }, props)
+          ),
+        }), true);
       } else if (_.isString(resolver.globalCss)) {
         injectGlobalCss(resolver.globalCss, true);
       }
 
       if (resolver.css) {
-        const css = _.isFunction(resolver.css) ? resolver.css({ key, value, options }) : resolver.css
+        const css = _.isFunction(resolver.css) ? resolver.css({
+          key,
+          value,
+          options,
+          applyResolvers: (props) => (
+            applyResolvers({ resolvers, ...contextRest }, props)
+          ),
+        }) : resolver.css
         const { className } = injectGlobalCss(css, false);
 
         if (className) {

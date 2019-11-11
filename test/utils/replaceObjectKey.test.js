@@ -4,9 +4,12 @@ const obj = {
   color: 'red',
   marginX: '10px',
   marginBottom: '30px',
-}
+};
 
-const newObj = replaceObjectKey(obj, 'marginX', { marginLeft: '10px', marginRight: '10px' });
+const newObj = replaceObjectKey(obj, 'marginX', {
+  marginLeft: '10px',
+  marginRight: '10px',
+});
 
 test('replaces object with exact position', () => {
   expect(newObj).toStrictEqual({
@@ -15,7 +18,7 @@ test('replaces object with exact position', () => {
     marginRight: '10px',
     marginBottom: '30px',
   });
-})
+});
 
 test('has correct order', () => {
   expect(Object.keys(newObj)).toStrictEqual([
@@ -24,4 +27,4 @@ test('has correct order', () => {
     'marginRight',
     'marginBottom',
   ]);
-})
+});

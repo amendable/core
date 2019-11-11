@@ -1,4 +1,5 @@
-import { useContext } from 'react'
-import applyResolvers from './applyResolvers'
+import { useContext } from 'react';
+import applyResolvers from './applyResolvers';
 
-export default Context => props => applyResolvers(useContext(Context), props);
+export default (Context) => (props) =>
+  applyResolvers(useContext(Context), props);

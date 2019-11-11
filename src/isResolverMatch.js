@@ -14,4 +14,4 @@ export default (match, key, value) => {
   } else {
     return match;
   }
-}
+};

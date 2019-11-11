@@ -13,7 +13,14 @@
     "url": "https://github.com/amendable/core/issues"
   },
   "repository": "amendable/core",
+  "dependencies": {
+    "@amendable/hash": "^0.1.1",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.15",
+    "stylis": "^3.5.4"
+  },
   "devDependencies": {
+    "@amendable/prettier-config": "^1.0.0",
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.0",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
@@ -23,7 +30,8 @@
     "@babel/preset-react": "^7.7.0",
     "@babel/runtime": "^7.7.1",
     "babel-plugin-lodash": "^3.3.4",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1"
   },
   "peerDependencies": {
     "react": "^16.8.x"
@@ -35,10 +43,5 @@
     "build-esm": "NODE_ENV=production BABEL_ENV=esm babel src --out-dir dist/esm --config-file ./babel.config.js",
     "test": "jest"
   },
-  "dependencies": {
-    "@amendable/hash": "^0.1.1",
-    "classnames": "^2.2.6",
-    "lodash": "^4.17.15",
-    "stylis": "^3.5.4"
-  }
+  "prettier": "@amendable/prettier-config"
 }

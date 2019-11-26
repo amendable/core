@@ -1,9 +1,9 @@
 import hash from '@amendable/hash';
 import stylis from 'stylis';
 
-const existingIds = [];
+const existingIds: string[] = [];
 
-export default (css, global = true) => {
+export default (css: string, global: boolean = true) => {
   const id = `amendable-${hash(css)}`;
   const stylisSelector = global ? '' : `.${id}`;
   const className = global ? null : id;

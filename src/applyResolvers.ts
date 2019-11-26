@@ -7,6 +7,7 @@ import { ProviderProps } from './types'
 
 interface Props {
   className?: string,
+  [key: string]: any,
 }
 
 const applyResolvers = ({ resolvers, ...contextRest }: ProviderProps, props: Props) => {

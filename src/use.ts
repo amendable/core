@@ -1,5 +1,6 @@
 import { useContext } from 'react';
+import { Context } from './Context';
 import applyResolvers from './applyResolvers';
 
-export default (Context) => (props) =>
+export default (props: object) =>
   applyResolvers(useContext(Context), props);

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default (match, key, value) => {
+export default (match: any, key: string, value: any) => {
   if (_.isFunction(match)) {
     return match({ key, value });
   } else if (_.isRegExp(match)) {

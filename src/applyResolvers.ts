@@ -3,15 +3,10 @@ import classNames from 'classnames';
 import replaceObjectKey from './utils/replaceObjectKey';
 import injectGlobalCss from './utils/injectGlobalCss';
 import isResolverMatch from './isResolverMatch';
-import { ProviderProps } from './types'
+import { ProviderProps, ResolverProps } from './types'
 
-interface Props {
-  className?: string,
-  [key: string]: any,
-}
-
-const applyResolvers = ({ resolvers, ...contextRest }: ProviderProps, props: Props) => {
-  let result: Props = props;
+const applyResolvers = ({ resolvers, ...contextRest }: ProviderProps, props: ResolverProps) => {
+  let result: ResolverProps = props;
 
   if (!_.isArray(resolvers)) {
     console.error('resolvers:', resolvers);
@@ -52,7 +47,7 @@ const applyResolvers = ({ resolvers, ...contextRest }: ProviderProps, props: Pro
           key,
           value,
           options,
-          applyResolvers: (props: Props) => (
+          applyResolvers: (props: ResolverProps) => (
             applyResolvers({ resolvers, ...contextRest }, props)
           ),
         }), true);
@@ -65,7 +60,7 @@ const applyResolvers = ({ resolvers, ...contextRest }: ProviderProps, props: Pro
           key,
           value,
           options,
-          applyResolvers: (props: Props) => (
+          applyResolvers: (props: ResolverProps) => (
             applyResolvers({ resolvers, ...contextRest }, props)
           ),
         }) : resolver.css

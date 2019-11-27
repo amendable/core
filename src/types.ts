@@ -9,3 +9,8 @@ export interface Resolver {
 export interface ProviderProps {
   resolvers?: Resolver[],
 }
+
+export interface ResolverProps {
+  className?: string,
+  [key: string]: any,
+}

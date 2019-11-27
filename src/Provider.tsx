@@ -1,5 +1,5 @@
 import React from 'react';
-import { Consumer, Provider } from './Context';
+import { Provider } from './Context';
 import { ProviderProps } from './types';
 
 const AmendableProvider: React.FC<ProviderProps> = ({ children, resolvers, ...rest }) => (

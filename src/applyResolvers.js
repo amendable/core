@@ -38,7 +38,7 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
       const options = _.isFunction(resolver.options) ? resolver.options({ key, value }) : {};
 
       if (resolver.resolve) {
-        result = replaceObjectKey(result, key, resolver.resolve({ key, value, options }));
+        result = replaceObjectKey(result, key, resolver.resolve({ key, value, props: result, options }));
       }
 
       if (_.isFunction(resolver.globalCss)) {

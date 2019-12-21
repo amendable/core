@@ -1,11 +1,10 @@
 {
   "name": "@amendable/core",
-  "version": "0.0.7",
-  "main": "dist/commonjs/index.js",
-  "module": "dist/esm/index.js",
+  "version": "0.1.3",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "files": [
-    "dist/commonjs",
-    "dist/esm"
+    "dist"
   ],
   "license": "MIT",
   "homepage": "https://github.com/amendable/core",
@@ -22,31 +21,26 @@
   },
   "devDependencies": {
     "@amendable/prettier-config": "^1.0.0",
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.0",
-    "@babel/plugin-proposal-class-properties": "^7.7.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.0",
-    "@babel/preset-typescript": "^7.7.4",
-    "@babel/runtime": "^7.7.1",
     "@types/classnames": "^2.2.9",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.13",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.4",
+    "@babel/runtime": "^7.7.6",
     "babel-plugin-lodash": "^3.3.4",
     "jest": "^24.9.0",
+    "microbundle": "^0.12.0-next.6",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
     "typescript": "^3.7.2"
   },
   "peerDependencies": {
     "react": "^16.8.x"
   },
   "scripts": {
-    "build": "yarn rimraf dist && yarn build-esm && yarn build-commonjs",
-    "watch": "BABEL_ENV=commonjs babel src --out-dir dist/commonjs --config-file ./babel.config.js -w",
-    "build-commonjs": "NODE_ENV=production BABEL_ENV=commonjs babel src --extensions \".ts,.tsx,.js\" --out-dir dist/commonjs --config-file ./babel.config.js",
-    "build-esm": "NODE_ENV=production BABEL_ENV=esm babel src --extensions \".ts,.tsx,.js\" --out-dir dist/esm --config-file ./babel.config.js",
+    "build": "rimraf dist && microbundle build --no-compress --jsx React.createElement --name amendableCore",
+    "watch": "microbundle watch --no-compress --jsx React.createElement",
     "test": "jest",
     "type-check": "tsc --noEmit"
   },

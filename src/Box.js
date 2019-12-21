@@ -5,8 +5,14 @@ import applyResolvers from './applyResolvers';
 const Box = memo(forwardRef(({ children, ...rest }, ref) => (
   <Consumer>
     {(context) => {
-      const { component, ...props } = applyResolvers(context, rest);
-      const Component = component || 'div';
+      const { component, ...props } = applyResolvers(context, {
+        component: 'div',
+        ...rest,
+      });
+
+      if (!component) throw new Error('Component undefined in `Box`. Please check your Amendable resolvers.')
+
+      const Component = component;
 
       return (
         <Component

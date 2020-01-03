@@ -14,7 +14,14 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
 
   resolvers.forEach((resolver, index) => {
     if (_.isFunction(resolver)) {
-      result = resolver(result);
+      result = resolver(
+        result,
+        {
+          applyResolvers: (props) => (
+            applyResolvers({ resolvers, ...contextRest }, props)
+          ),
+        }
+      );
 
       if (_.isFunction(result)) {
         console.warn(`Warning: Resolver index #${index} is passed as a function. You might need to call it instead.`)

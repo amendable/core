@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@amendable/prettier-config": "^1.0.0",
-    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
-    "@babel/runtime": "^7.7.6",
+    "@babel/runtime": "^7.7.7",
     "babel-plugin-lodash": "^3.3.4",
     "jest": "^24.9.0",
     "microbundle": "^0.12.0-next.6",

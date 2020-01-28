@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import classNames from 'classnames';
 import replaceObjectKey from './utils/replaceObjectKey';
-import injectGlobalCss from './utils/injectGlobalCss';
 import isResolverMatch from './isResolverMatch';
 
 const applyResolvers = ({ resolvers, ...contextRest }, props) => {
@@ -45,38 +43,15 @@ const applyResolvers = ({ resolvers, ...contextRest }, props) => {
       const options = _.isFunction(resolver.options) ? resolver.options({ key, value }) : {};
 
       if (resolver.resolve) {
-        result = replaceObjectKey(result, key, resolver.resolve({ key, value, props: result, options }));
-      }
-
-      if (_.isFunction(resolver.globalCss)) {
-        injectGlobalCss(resolver.globalCss({
+        result = replaceObjectKey(result, key, resolver.resolve({
           key,
           value,
+          props: result,
           options,
           applyResolvers: (props) => (
             applyResolvers({ resolvers, ...contextRest }, props)
           ),
-        }), true);
-      } else if (_.isString(resolver.globalCss)) {
-        injectGlobalCss(resolver.globalCss, true);
-      }
-
-      if (resolver.css) {
-        const css = _.isFunction(resolver.css) ? resolver.css({
-          key,
-          value,
-          options,
-          applyResolvers: (props) => (
-            applyResolvers({ resolvers, ...contextRest }, props)
-          ),
-        }) : resolver.css
-        const { className } = injectGlobalCss(css, false);
-
-        if (className) {
-          if (!result.className || !result.className.match(new RegExp(`\\b${className}\\b`))) {
-            result.className = classNames(className, result.className)
-          }
-        }
+        }));
       }
     });
   });

@@ -22,7 +22,7 @@
     "@babel/runtime": "^7.8.3",
     "babel-plugin-lodash": "^3.3.4",
     "jest": "^25.1.0",
-    "microbundle": "0.12.0-next.6",
+    "microbundle": "^0.12.0-next.8",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.1"
   },

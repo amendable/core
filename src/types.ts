@@ -10,6 +10,11 @@ export interface ProviderProps {
   resolvers?: Resolver[],
 }
 
+export interface BoxProps {
+  children?: Resolver[],
+  [x:string]: any;
+}
+
 export interface ResolverProps {
   className?: string,
   [key: string]: any,

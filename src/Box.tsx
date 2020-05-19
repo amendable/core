@@ -1,8 +1,9 @@
 import React, { memo, forwardRef } from 'react';
 import { Consumer } from './Context';
 import applyResolvers from './applyResolvers';
+import { BoxProps } from './types'
 
-const Box = memo(forwardRef(({ children, ...rest }, ref) => (
+const Box: React.FC<BoxProps> = memo(forwardRef(({ children, ...rest }, ref) => (
   <Consumer>
     {(context) => {
       const { component, ...props } = applyResolvers(context, {

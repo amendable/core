@@ -23,7 +23,6 @@
     "newLine": "lf",
     "noEmitOnError": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
   },
   "include": [
     "src"

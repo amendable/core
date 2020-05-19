@@ -16,7 +16,7 @@ const applyResolvers = ({ resolvers, ...contextRest }: ProviderProps, props: Res
       result = resolver(
         result,
         {
-          applyResolvers: (props) => (
+          applyResolvers: (props: ResolverProps) => (
             applyResolvers({ resolvers, ...contextRest }, props)
           ),
         }

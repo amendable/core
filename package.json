@@ -13,7 +13,7 @@
   },
   "repository": "amendable/core",
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "@amendable/prettier-config": "^1.0.0",

@@ -1,5 +1,17 @@
-const replaceObjectKey = (object: { [key: string]: any }, replaceKey: string, newObject: object) => {
-  let o: { [key: string]: any } = {}
+type PlainObject = { [key: string]: any };
+
+type ReplaceObjectKeyFn = (
+  object: PlainObject,
+  replaceKey: string,
+  newObject: object
+) => PlainObject;
+
+const replaceObjectKey: ReplaceObjectKeyFn = (
+  object,
+  replaceKey,
+  newObject
+) => {
+  let o: PlainObject = {};
 
   Object.keys(object).forEach((key: string) => {
     if (key === replaceKey) {
@@ -11,6 +23,6 @@ const replaceObjectKey = (object: { [key: string]: any }, replaceKey: string, ne
   });
 
   return o;
-}
+};
 
 export default replaceObjectKey;

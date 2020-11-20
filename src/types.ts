@@ -1,21 +1,21 @@
 export interface Resolver {
-  match: any,
-  css?: ({}) => string | string,
-  globalCss?: ({}) => string | string,
-  resolve?: ({}) => object,
-  options?: ({}: { key: string, value: any }) => object,
+  match: any;
+  css?: ({}) => string | string;
+  globalCss?: ({}) => string | string;
+  resolve?: ({}) => object;
+  options?: ({}: { key: string; value: any }) => object;
 }
 
 export interface ProviderProps {
-  resolvers?: Resolver[],
+  resolvers?: Resolver[];
 }
 
 export interface BoxProps {
-  children?: Resolver[],
-  [x:string]: any;
+  children?: Resolver[];
+  [x: string]: any;
 }
 
 export interface ResolverProps {
-  className?: string,
-  [key: string]: any,
+  className?: string;
+  [key: string]: any;
 }

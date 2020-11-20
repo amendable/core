@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default (match: any, key: string, value: any) => {
+const isResolverMatch = (match: any, key: string, value: any) => {
   if (_.isFunction(match)) {
     return match({ key, value });
   } else if (_.isRegExp(match)) {
@@ -15,3 +15,5 @@ export default (match: any, key: string, value: any) => {
     return match;
   }
 };
+
+export default isResolverMatch;

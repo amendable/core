@@ -2,7 +2,8 @@
   "name": "@amendable/core",
   "version": "0.3.0",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/core.esm.js",
   "files": [
     "dist"
   ],
@@ -13,31 +14,27 @@
   },
   "repository": "amendable/core",
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.20",
+    "lodash-es": "^4.17.15"
   },
   "devDependencies": {
     "@amendable/prettier-config": "^1.0.0",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "@babel/preset-typescript": "^7.9.0",
-    "@babel/runtime": "^7.9.6",
-    "@types/lodash": "^4.14.151",
-    "@types/react": "^16.9.35",
-    "babel-plugin-lodash": "^3.3.4",
+    "@types/lodash": "^4.14.165",
+    "@types/react": "^16.14.0",
     "jest": "^26.0.1",
-    "microbundle": "^0.12.0",
     "prettier": "^2.0.5",
-    "rimraf": "^3.0.2",
+    "tsdx": "^0.14.1",
     "typescript": "^3.9.2"
   },
   "peerDependencies": {
-    "react": "^16.8.x"
+    "react": ">= 16.8"
   },
   "scripts": {
-    "build": "rimraf dist && microbundle build --no-compress --jsx React.createElement --name amendableCore",
-    "watch": "microbundle watch --no-compress --jsx React.createElement",
-    "test": "jest",
-    "type-check": "tsc --noEmit"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint src",
+    "prepare": "tsdx build"
   },
   "prettier": "@amendable/prettier-config"
 }

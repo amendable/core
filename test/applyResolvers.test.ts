@@ -2,7 +2,7 @@ import applyResolvers from '../src/applyResolvers';
 
 const marginXResolver = () => ({
   match: 'marginX',
-  resolve: ({ key, value }) => ({
+  resolve: ({ value }) => ({
     marginRight: value,
     marginLeft: value,
   }),
@@ -10,7 +10,7 @@ const marginXResolver = () => ({
 
 const marginYResolver = () => ({
   match: 'marginY',
-  resolve: ({ key, value }) => ({
+  resolve: ({ value }) => ({
     marginBottom: value,
     marginTop: value,
   }),
@@ -76,7 +76,7 @@ test('match works with a converted key', () => {
   const resolvers = [
     {
       match: 'backgroundColorBlue',
-      resolve: ({ key, value }) => ({
+      resolve: ({ value }) => ({
         backgroundColor: 'blue',
       }),
     },

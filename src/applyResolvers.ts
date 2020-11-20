@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import replaceObjectKey from './utils/replaceObjectKey';
 import isResolverMatch from './isResolverMatch';
-import { ProviderProps, ResolverProps } from './types'
+import { ApplyResolversFn, ResolverProps } from './types'
 
-const applyResolvers = ({ resolvers, ...contextRest }: ProviderProps, props: ResolverProps) => {
+const applyResolvers: ApplyResolversFn = ({ resolvers, ...contextRest }, props) => {
   let result: ResolverProps = props;
 
   if (!_.isArray(resolvers)) {
